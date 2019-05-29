@@ -1,0 +1,287 @@
+Machine Problems - Question no. 1
+
+//Machine Problem 1
+
+#include <iostream>
+#include <string>
+#include <conio.h>
+#include <cmath>
+
+using namespace std;
+
+int main () {
+	
+	string student[50];
+	int quiz[4], exams[2], sw[10], nb;
+	
+	double gcquiz, gcme, gccs;
+	int totalexam[50], totalsw[10], totalquiz[50], bw[50];
+	int tempquiz = 0, tempexam = 0, tempsw = 0; 
+	int finalGrade[50];
+	
+	double gwa[50], tempgwa;
+	string status[50];
+	
+	string tempname;
+	
+	cout << "Classroom Management Software" << endl;
+	
+	for (int i = 0; i < 50; i++) {
+		
+		//Input of each student
+		cout << "Student Name: ";
+		cin >> student[i];
+		
+		//Input of quizzes
+		for (int q = 0; q < 4; q++) { 
+		
+			cout << "Quiz " << q + 1 << ": ";
+			cin >> quiz[q];
+			
+			tempquiz = tempquiz + quiz[q];
+		
+		}
+		
+		//Formula of total quiz
+		totalquiz[i] = tempquiz;
+		gcquiz = (totalquiz[i] / 400.0) * 0.6;
+		tempquiz = 0;
+		
+		//Input of major examinations
+		cout << "Preliminary Exam: ";
+		cin >> exams[i];
+		
+		cout << "Final Exam: ";
+		cin >> exams [i+1];
+		
+		//Formula of total exams
+		for (int e = 0; e < 2; e++) {
+			
+			tempexam = tempexam + exams[e]; 
+			
+		}
+		
+		
+		totalexam[i] = tempexam;
+		gcme = (totalexam[i] / 200.0) * 0.4;
+		tempexam = 0;
+		
+		//Input of notebook
+		cout << "Notebook: ";
+		cin >> nb;
+		
+		//Input of seatworks
+		for (int s = 0; s < 10; s++) {
+			
+			cout << "Seatwork: " << s + 1 << ": ";
+			cin >> sw[s];
+			
+			tempsw = tempsw + sw[s];
+		}
+		//Formula of total seatworks
+		totalsw[i] = tempsw;
+		
+		//Input of boardwork points
+		cout << "Boardwork points: ";
+		cin >> bw[i];
+		
+		gccs = ((nb / 100.0) * 0.01) + ((totalsw[i]/100.0) * 0.02) + ((bw[i]/5) * 0.02);
+		
+		finalGrade[i] = (gcquiz + gcme + gccs) * 100.00;
+		
+		//Determining the corresponding GPA of final grade
+		if (finalGrade[i] <= 150 && finalGrade[i] >= 95.57)
+			gwa[i] = 1.00;
+			
+		else if (finalGrade[i] >= 91.12 && finalGrade[i]<= 95.56)
+			gwa[i] = 1.25;
+		
+		else if (finalGrade[i] >= 86.68 && finalGrade[i] <= 91.11)
+			gwa[i] = 1.50;
+		
+		else if (finalGrade[i] >= 82.23 && finalGrade[i] <= 86.67)
+			gwa[i] = 1.75;
+		
+		else if (finalGrade[i] >= 77.79 && finalGrade[i] <= 82.22)
+			gwa[i] = 2.00;
+		
+		else if (finalGrade[i] >= 73.34 && finalGrade[i] <= 77.78)
+			gwa[i] = 2.25;
+		
+		else if (finalGrade[i] >= 68.90 && finalGrade[i] <= 73.33)
+		 	gwa[i] = 2.50;
+		
+		else if (finalGrade[i] >= 64.45 && finalGrade[i] <= 68.89)
+			gwa[i] = 2.75;
+		
+		else if (finalGrade[i] >= 60.00 && finalGrade[i] <= 64.44)
+			gwa[i] = 3.00;
+		
+		else if (finalGrade[i] <= 59.99)
+			gwa[i] = 5.00;
+		
+		//Determining if student passed or failed
+		if (gwa[i] <= 3.00)
+			status[i] = "Passed";
+		else 
+			status[i] = "Failed";
+			
+		cout << endl;
+	}
+	
+	//Displaying the raw grade, gpa, and statuses of 50 students
+	for (int i = 0; i < 50; i++) {
+		cout << i + 1 << ". " << student[i] << ", Final Raw Grade: " << finalGrade[i] << ", GPA: " << gwa[i] << ", Status: " << status[i];
+		cout << endl;
+	}
+	
+	//Sorting of top 10 performing students in class
+	for(int i = 1; i < 50 ; ++i) {
+		for(int j = 0; j < (50 - i); ++j) {
+			if(gwa[j] > gwa[j + 1]) {
+				 
+				tempgwa = gwa[j];
+				gwa[j] = gwa[j + 1];
+				gwa[j + 1] = tempgwa;
+				
+				tempname = student[j];
+				student[j] = student[j + 1];
+				student[j + 1] = tempname;
+				
+			}
+		}
+	}
+	
+	cout << endl << endl;
+	
+	cout << "Top 10 Performing Students:" << endl;
+	//Displaying the top ten students
+	for (int i = 0; i < 10; i++) {
+		cout << "Top " << i + 1 << ": " << student[i] << " with a GPA of " << gwa[i] << endl;
+	}
+	
+	cout << endl;
+	
+}
+
+
+Machine Problems - Question no. 2
+
+//This program solves for all interior angles, and classify the type of triangle based on its measurement on sides and angles.
+//It will also determine the area, perimeter, and the length of its apothem and circumcenter.
+
+#include <iostream>
+#include <string>
+#include <conio.h>
+#include <cmath>
+
+using namespace std;
+
+int main() 
+{
+	
+	for (;;) {
+		double a, b, c;
+		cout << "This program will compute values based on your given sides of the triangle." << endl;
+		cout << "Enter side A: ";
+		cin >> a;
+		
+		cout << "Enter side B: ";
+		cin >> b;
+		
+		cout << "Enter side C: ";
+		cin >> c;
+		cout << endl;
+				
+		double x, y, z, A, A1, B, B1, C;
+		int side[3], i, j;
+		int tempside;
+		x = ((b*b) + (c*c)) - (a*a)/(2*b*c); //Computation for interior angle of Side A
+		A1 = acos(x);
+		A = acos(A1);
+		cout << "Interior angle of side A: " << A << endl;
+		
+		y = (b*sin(A)); //Computation interior angle of Side B
+		B1 = y/a;
+		B = asin(B1);
+		cout << "Interior angle of side B: " << B << endl;
+		
+		z = B + A; //Computation for interior angle of Side C
+		C = 180-z;
+		cout << "Interior angle of side C: " << C << endl;
+		cout << endl;
+				
+		//Comparison of sides a, b, c
+		if (a == b && b == c) //equal sides
+		{
+			cout << "Triangle is an equilateral triangle." << endl;
+		}
+		else if (a == b || b == c || c == a) //only 2 sides are equal
+		{
+			cout << "Triangle is an isosceles triangle." << endl;
+		}
+		else if (a != b && b != c && c != a) //no equal sides
+		{
+			cout << "Triangle is a scalene triangle." << endl;
+		}
+		cout << endl;
+		
+		//Computation for the area and perimeter.
+		
+		double perimeter  = (a + b + c); //sum of all sides
+		double p = perimeter/2; 
+		double area = sqrt(p*(p - a)*(p - b)*(p - c)); //pertains to the formula of area of triangle
+		cout << "Area: " << area << endl;
+		cout << "Perimeter: " << perimeter << endl;
+		cout << endl;
+	
+		//Classification of Triangles based on their Interior Angles
+		
+		if (A > 90 || B < 90 || C < 90) //More than 90 degrees
+		{
+			cout << "Triangle is a obtuse triangle." << endl;
+		}
+		else if (A < 90 || B > 90 || C == 90) //Equal to 90 degrees
+		{
+			cout << "Triangle is a right triangle." << endl;
+		}
+		else if (A < 90 || B < 90 || C == 90) //Less than 90 degrees
+		{
+			cout << "Triangle is an acute triangle." << endl;
+		}
+		cout << endl;
+		
+		//Formula to get the length of apothem and circumcenter
+		
+		if (a == b) //Must have have equal sides
+		if (b == c) 
+		{
+			double apothem;
+			apothem = (a)/(2*tan(180/3)); 
+			cout << "Length of apothem: " << apothem << endl;
+		}
+		else 
+		
+			cout << "Triangle must be equilateral for apothem to be calculated." << endl;
+		
+		double circumcenter = (a*b*c)/(4*area); //Multiply the sides of the triangle then divide to the area times 4
+		cout << "Length of circumcenter: " << circumcenter << endl;
+		
+		cout << endl;
+		
+		string decision;
+		cout << "Do you still want to use this Program? "; //Inquiry to further use this program
+	{
+		cin >> decision;
+	}
+		cout << endl;
+		
+		if (decision[0] == 'y' || decision[0] == 'Y')
+			continue;
+		else 
+			cout << "Thank you for using this Program!";
+			break; 
+	}
+	
+	return 0;
+}
